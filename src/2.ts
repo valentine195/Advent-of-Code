@@ -22,4 +22,5 @@ for (const [command, value] of commands) {
         }
     }
 }
-console.log(depth, horizontal, depth * horizontal);
+
+console.log(depth * horizontal);
