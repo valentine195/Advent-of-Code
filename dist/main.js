@@ -5,4 +5,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 
 console.log(result); */
 //day 2
-require("./src/2");
+/*
+import "./src/2"; */
+//day 3
+/*
+import "./src/3" */
+//day 4
+require("./src/4_2");
