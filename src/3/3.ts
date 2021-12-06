@@ -1,4 +1,4 @@
-import { power } from "./inputs";
+import { power } from "../inputs";
 
 const bits: number[] = [];
 
