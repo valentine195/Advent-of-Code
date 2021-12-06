@@ -1,4 +1,4 @@
-import { inputs } from "./inputs";
+import { inputs } from "../inputs";
 
 const commands = inputs.map((input) => input.split(" "));
 
