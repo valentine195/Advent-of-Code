@@ -11,4 +11,6 @@ import "./src/2"; */
 /*
 import "./src/3" */
 //day 4
-require("./src/4_2");
+/* import "./src/4/4_2"; */
+//day 5
+require("./src/5/2");

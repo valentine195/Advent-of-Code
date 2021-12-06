@@ -1,4 +1,4 @@
-import { depths } from "../src/inputs";
+import { depths } from "../inputs";
 
 const result1 = depths.reduce(
     (acc, curr, i, a) => (i != 0 && a[i] > a[i - 1] ? acc + 1 : acc),
