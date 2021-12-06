@@ -23,4 +23,4 @@ for (var _i = 0, commands_1 = commands; _i < commands_1.length; _i++) {
         }
     }
 }
-console.log(depth, horizontal, depth * horizontal);
+console.log(depth * horizontal);

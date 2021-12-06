@@ -4,7 +4,10 @@
 
 console.log(result); */
 
-
 //day 2
 
-import "./src/2";
+/* import "./src/2"; */
+
+//day 3
+
+import "./src/3";
