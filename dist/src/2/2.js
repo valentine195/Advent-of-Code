@@ -1,12 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var inputs_1 = require("../inputs");
-var commands = inputs_1.inputs.map(function (input) { return input.split(" "); });
-var aim = 0;
-var horizontal = 0;
-var depth = 0;
-for (var _i = 0, commands_1 = commands; _i < commands_1.length; _i++) {
-    var _a = commands_1[_i], command = _a[0], value = _a[1];
+const inputs_1 = require("../inputs");
+const commands = inputs_1.inputs.map((input) => input.split(" "));
+let aim = 0;
+let horizontal = 0;
+let depth = 0;
+for (const [command, value] of commands) {
     switch (command) {
         case "up": {
             aim -= Number(value);

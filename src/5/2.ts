@@ -24,9 +24,8 @@ const data = input.map((s) =>
 const maxX = Math.max(...data.map((v) => [v[0][0], v[1][0]]).flat()) + 1;
 const maxY = Math.max(...data.map((v) => [v[0][1], v[1][1]]).flat()) + 1;
 
-const considered = data; /* .filter((v) => {
-    return v[0][0] == v[1][0] || v[0][1] == v[1][1];
-}); */
+const considered = data;
+
 const dots: number[][] = [...Array(maxX).fill(0)].map((v) => [
     ...Array(maxY).fill(0)
 ]);
@@ -80,7 +79,6 @@ function calculateDiag(entry: [start: number[], end: number[]]) {
 
     const start = entry[0][1] < entry[1][1] ? entry[0] : entry[1];
     const end = entry[0][1] < entry[1][1] ? entry[1] : entry[0];
-    console.log("🚀 ~ file: 2.ts ~ line 89 ~ end", start, end);
 
     for (let i = start[1]; i <= end[1]; i++) {
         const dot = dots[i];

@@ -48,4 +48,4 @@ while (co2.length > 1 && index < power[0].length) {
     co2 = co2.filter((v) => Number(v[index]) != common);
     index++;
 }
-console.log(parseInt(oxygen[0], 2) * parseInt(co2[0], 2));
+console.log(parseInt(oxygen[0], 2), parseInt(co2[0], 2));
