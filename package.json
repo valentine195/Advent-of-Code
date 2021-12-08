@@ -6,7 +6,7 @@
     "scripts": {
         "compile": "tsc",
         "start": "npm run compile && node ./dist/main.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "set NODE_ENV=test && npm run start"
     },
     "repository": {
         "type": "git",
