@@ -1,6 +1,6 @@
 import { mult, read, run, sum } from "../helper";
 
-const input = read("src/11/input.txt");
+const input = read(11);
 
 const testInput = `5483143223
 2745854711

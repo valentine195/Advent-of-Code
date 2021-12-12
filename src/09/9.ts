@@ -1,7 +1,7 @@
 import { cp } from "fs";
 import { read, run, sum } from "../helper";
 
-const input = read("src/9/input.txt");
+const input = read(9);
 
 const testInput = `2199943210
 3987894921

@@ -1,4 +1,5 @@
 import { readFileSync } from "fs";
+import path from "path";
 
 export const run = (
     cb: (data: string) => any,
@@ -32,4 +33,7 @@ export const mult = (value: Array<number> | Map<any, number> | Set<number>) => {
     return array.reduce((a, b) => a * b);
 };
 
-export const read = (file: string) => readFileSync(file).toString().trim();
+export const read = (day: number) =>
+    readFileSync(path.resolve(`inputs/day${day}.txt`))
+        .toString()
+        .trim();

@@ -1,6 +1,6 @@
 import { mult, read, run, sum } from "../helper";
 
-const input = read("src/10/input.txt");
+const input = read(10);
 
 const testInput = `[({(<(())[]>[[{[]{<()<>>
 [(()[<>])]({[<{<<[]>>(

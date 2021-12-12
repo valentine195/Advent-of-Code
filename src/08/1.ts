@@ -1,6 +1,6 @@
 import { read, run, sum } from "../helper";
 
-const input = read("src/8/input.txt");
+const input = read(8);
 
 const testInput = `be cfbegad cbdgef fgaecd cgeb fdcge agebfd fecdb fabcd edb | fdgacbe cefdb cefbgd gcbe
 edbfga begcd cbg gc gcadebf fbgde acbgfd abcde gfcbed gfec | fcgedb cgb dgebacf gc

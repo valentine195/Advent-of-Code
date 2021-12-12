@@ -40,4 +40,7 @@ import "./src/2"; */
 /* import "./src/10"; */
 
 //day 11
-import "./src/11";
+/* import "./src/11"; */
+
+//day 12
+import "./src/12";
