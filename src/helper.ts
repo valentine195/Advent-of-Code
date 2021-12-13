@@ -36,4 +36,5 @@ export const mult = (value: Array<number> | Map<any, number> | Set<number>) => {
 export const read = (day: number) =>
     readFileSync(path.resolve(`inputs/day${day}.txt`))
         .toString()
-        .trim();
+        .trim()
+        .replace(/\r/g, "");
