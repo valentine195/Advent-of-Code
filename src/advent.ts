@@ -35,7 +35,7 @@ export class Input {
 
     private static async write(file: string, url: string) {
         console.log("Downloading input...");
-        const response = await fetch.get(`url`, {
+        const response = await fetch.get(url, {
             headers: {
                 cookie: `session=${process.env.session}`
             }
