@@ -1,6 +1,7 @@
+import { Input } from "../advent";
 import { read, run } from "../helper";
 
-const input = read(13);
+/* const input = read(13); */
 /* console.log("🚀 ~ file: index.ts ~ line 4 ~ input", input.split(/[\r\n]{2}/)); */
 
 const testInput = `6,10
@@ -47,14 +48,12 @@ class Sheet {
     async start() {
         this.fold(this.folds[0]);
         console.log("PART 1:", this.dots.size);
-
+        let start = new Date();
         for (const fold of this.folds) {
             this.fold(fold);
-            process.stdout.cursorTo(0, 0);
-            process.stdout.clearScreenDown();
-            this.print();
-            await new Promise((resolve) => setTimeout(resolve, 1000));
         }
+        this.print();
+        console.log(Date.now().valueOf() - start.valueOf());
     }
     fold(command: string) {
         this.numberOfFolds++;
@@ -97,8 +96,11 @@ class Sheet {
     }
 }
 
-const build = (input: string) => {
-    const sheet = new Sheet(input);
+const build = async (/* input: string */) => {
+    const input = await Input.get({ day: 13 });
+    const sheet = new Sheet(input.all());
 };
 
-run(build, input, testInput);
+build();
+
+/* run(build, input, testInput); */
