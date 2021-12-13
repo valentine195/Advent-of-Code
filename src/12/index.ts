@@ -51,4 +51,4 @@ const build = (input: string) => {
     cave.start();
 };
 
-run(build, input, testInput);
+run(build, /* input, */ testInput);
