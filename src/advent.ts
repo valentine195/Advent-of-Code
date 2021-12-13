@@ -1,4 +1,4 @@
-import { readFile, writeFile } from "fs/promises";
+import { readFile, writeFile, access } from "fs/promises";
 import fetch from "axios";
 import path from "path";
 
@@ -19,44 +19,41 @@ export class Input {
         const day = options.day;
         const year = options.year ?? 2021;
         const file = `day${day}.txt`;
-        console.log("🚀 ~ file: advent.ts ~ line 21 ~ file", file);
-        const url = `https://adventofcode.com/${options.year}/day/${options.day}/input`;
+        const url = `https://adventofcode.com/${year}/day/${day}/input`;
 
-        try {
-            const buffer = await readFile(path.join(Input.path, file));
-            console.log(`Using input from ${file}`);
-            return new Input(buffer.toString().trim().replace("\r", ""));
-        } catch (error) {
-            if (
-                error instanceof Error &&
-                "code" in error &&
-                (error as any).code === "ENOENT" &&
-                url !== undefined &&
-                process.env.session
-            ) {
-                console.log("Downloading input...");
-                const response = await fetch.get(
-                    `https://adventofcode.com/${year}/day/${day}/input`,
-                    {
-                        headers: {
-                            cookie: `session=${process.env.session}`
-                        }
-                    }
-                );
+        return new Promise(
+            async (resolve) =>
+                await access(path.join(Input.path, file))
+                    .then(async () => {
+                        resolve(await Input.read(file));
+                    })
+                    .catch(async () => {
+                        resolve(await Input.write(file, url));
+                    })
+        );
+    }
 
-                if (response.status !== 200) {
-                    console.log(response.data);
-                    throw new Error(
-                        `Failed to fetch input: ${response.status}`
-                    );
-                }
-
-                const content = response.data;
-                await writeFile(path.join(Input.path, file), content);
-                return new Input(content.trim().replace("\r", ""));
+    private static async write(file: string, url: string) {
+        console.log("Downloading input...");
+        const response = await fetch.get(`url`, {
+            headers: {
+                cookie: `session=${process.env.session}`
             }
-            throw error;
+        });
+
+        if (response.status !== 200) {
+            console.log(response.data);
+            throw new Error(`Failed to fetch input: ${response.status}`);
         }
+
+        const content = response.data;
+        await writeFile(path.join(Input.path, file), content);
+        return new Input(content.trim().replace("\r", ""));
+    }
+    private static async read(file: string) {
+        const buffer = await readFile(path.join(Input.path, file));
+        console.log(`Using input from ${file}`);
+        return new Input(buffer.toString().trim().replace("\r", ""));
     }
 
     public all(): string {
