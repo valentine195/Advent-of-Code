@@ -87,7 +87,7 @@ function calculate(polymer: string, pattern: Map<string, number>) {
         out = out.set(k[1], (out.get(k[1]) ?? 0) + c);
     }
 
-    let min = Math.min(...out.values()); /* out.minBy((v) => v)! */
+    let min = Math.min(...out.values());
     let max = Math.max(...out.values());
 
     return (max - min) / 2;

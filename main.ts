@@ -50,4 +50,7 @@ import "./src/2"; */
  */
 
 //day 14
-import "./src/14";
+/* import "./src/14"; */
+
+//day 15
+import "./src/15";
