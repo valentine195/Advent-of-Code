@@ -13,6 +13,10 @@ export const run = (
     }
 };
 
+export const test = () => {
+    return process.env.NODE_ENV?.trim() == "test";
+};
+
 export const sum = (value: Array<number> | Map<any, number> | Set<number>) => {
     const array = Array.isArray(value)
         ? value
