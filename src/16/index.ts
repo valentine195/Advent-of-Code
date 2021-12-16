@@ -1,141 +1,88 @@
 import { Input } from "../advent";
 
-const testInput = `1163751742
-1381373672
-2136511328
-3694931569
-7463417111
-1319128137
-1359912421
-3125421639
-1293138521
-2311944581`;
-
-function getBinary(...str: string[]) {
-    return [...str].map((h) => hex.get(h)).join("");
-}
-
-const hex = new Map([
-    ["0", "0000"],
-    ["1", "0001"],
-    ["2", "0010"],
-    ["3", "0011"],
-    ["4", "0100"],
-    ["5", "0101"],
-    ["6", "0110"],
-    ["7", "0111"],
-    ["8", "1000"],
-    ["9", "1001"],
-    ["A", "1010"],
-    ["B", "1011"],
-    ["C", "1100"],
-    ["D", "1101"],
-    ["E", "1110"],
-    ["F", "1111"]
-]);
-const bin = new Map([
-    ["0000", "0"],
-    ["0001", "1"],
-    ["0010", "2"],
-    ["0011", "3"],
-    ["0100", "4"],
-    ["0101", "5"],
-    ["0110", "6"],
-    ["0111", "7"],
-    ["1000", "8"],
-    ["1001", "9"],
-    ["1010", "A"],
-    ["1011", "B"],
-    ["1100", "C"],
-    ["1101", "D"],
-    ["1110", "E"],
-    ["1111", "F"]
-]);
-
 class Parser {
-    hex: string[];
-    constructor(hex: string) {
-        this.hex = hex.split("");
+    hex: string = "";
+    constructor(public input: string) {
+        for (let i = 0; i < input.length; i++) {
+            this.hex += parseInt(input[i], 16).toString(2).padStart(4, "0");
+        }
     }
     versions = 0;
-    parse(bits: string[] = this.hex) {
-        const bit = [];
-        while (bit.length < 6) {
-            bit.push(...this.getChar(bits));
-        }
-        const { type, version } = this.test(bit.join(""));
-        this.versions += Number(version);
-        switch (type) {
-            case "4": {
-                this.getLiteral(bit);
-                break;
-            }
-            default: {
-                this.getOperator(bit);
-            }
-        }
-    }
-    getOperator(bits: string[]) {
-        if (bits.length < 7) {
-            bits.push(...this.getChar());
-        }
-        const length = bits[6];
-        console.log("88", length);
-        if (length == "0") {
-            while (bits.length < 22) {
-                bits.push(...this.getChar());
-            }
-            console.log("🚀 ~ file: index.ts ~ line 91 ~ bits", bits);
-            const length = parseInt(bits.slice(7, 22).join(""), 2);
-            const sub = [...bits.slice(22)];
-            while (sub.length < length) {
-                sub.push(...this.getChar());
-            }
-            console.log("🚀 ~ file: index.ts ~ line 93 ~ sub", sub);
-        }
-    }
-    getChar(bits: string[] = this.hex) {
-        const characters = getBinary(...bits.slice(0, 1));
-        this.hex = this.hex.slice(1);
-        return characters;
-    }
-    getLiteral(bits: string[]) {
-        bits.push(...this.getChar());
-        switch (bits[6 + 5 * Math.floor((bits.length - 6) / 5)]) {
-            case "0": {
-                if (
-                    bits.slice(6 + 5 * Math.floor((bits.length - 6) / 5))
-                        .length < 5
-                ) {
-                    bits.push(...this.getChar());
-                }
-                break;
-            }
-            default: {
-                bits = this.getLiteral(bits);
-            }
-        }
-        return bits;
-    }
-    test(hex: string) {
-        const version = bin.get(hex.slice(0, 3).padStart(4, "0"));
-        const type = bin.get(hex.slice(3, 6).padStart(4, "0"));
+    parse(str: string = this.hex): [count: number, value: number] {
+        const version = parseInt(str.slice(0, 3), 2);
+        const type = parseInt(str.slice(3, 6), 2);
+        this.versions += version;
 
-        return { version, type };
+        const values = [];
+
+        if (type == 4) {
+            let increment = 6;
+            let packet = "";
+            while (str[increment] == "1") {
+                packet += str.slice(increment + 1, increment + 5);
+                increment += 5;
+            }
+            packet += str.slice(increment + 1, increment + 5);
+            return [increment + 5, parseInt(packet, 2)];
+        } else {
+            let packetLength;
+            const slicer = str[6] == "0" ? 22 : 18;
+            let length = parseInt(str.slice(7, slicer), 2);
+            if (str[6] == "0") {
+                let count = 0;
+                while (count < length) {
+                    let packet = this.parse(str.slice(22 + count));
+                    count += packet[0];
+                    values.push(packet[1]);
+                }
+                packetLength = 22 + length;
+            } else {
+                let count = 18;
+                for (let i = 0; i < length; i++) {
+                    let packet = this.parse(str.slice(count));
+                    count += packet[0];
+                    values.push(packet[1]);
+                }
+                packetLength = count;
+            }
+
+            let value: number = 0;
+            switch (type) {
+                case 0:
+                    value = values.reduce((a, b) => a + b);
+                    break;
+                case 1:
+                    value = values.reduce((a, b) => a * b);
+                    break;
+                case 2:
+                    value = Math.min(...values);
+                    break;
+                case 3:
+                    value = Math.max(...values);
+                    break;
+                case 5:
+                    value = values[0] > values[1] ? 1 : 0;
+                    break;
+                case 6:
+                    value = values[0] < values[1] ? 1 : 0;
+                    break;
+                case 7:
+                    value = values[0] == values[1] ? 1 : 0;
+                    break;
+            }
+            return [packetLength, value];
+        }
     }
 }
 
 const startTime = new Date();
 const build = async () => {
     const input = (await Input.get({ day: 16 })).all();
-
-    const parser = new Parser(/* input */ "38006F45291200");
-
-    parser.parse();
-
-    console.log(Date.now().valueOf() - startTime.valueOf());
+    //const input = "D2FE28";
+    const Packets = new Parser(input);
+    const [, totals] = Packets.parse();
+    console.log("PART 1:", Packets.versions, "\nPART 2:", totals);
+    console.log("TIME(ms):", Date.now().valueOf() - startTime.valueOf());
 };
-
-function literal(input: string) {}
 
 build();
