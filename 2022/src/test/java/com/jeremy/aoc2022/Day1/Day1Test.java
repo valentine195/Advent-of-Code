@@ -4,10 +4,12 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.jeremy.aoc2022.Loader;
+
 public class Day1Test {
 
-    String TEST_INPUT = "1000\n2000\n3000\n\n4000\n\n5000\n6000\n\n7000\n8000\n9000\n\n10000";
-    Day1 day1 = new Day1(TEST_INPUT);
+    static String TEST_INPUT = new Loader().load(1);
+    static Day1 day1 = new Day1(TEST_INPUT);
 
     @Test
     public void part1() {
