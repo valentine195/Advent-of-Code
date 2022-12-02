@@ -13,6 +13,7 @@ import okhttp3.Response;
  *
  */
 public class App {
+    static Runner runner = new Runner();
 
     public static void main(String[] arg) {
         int day;
@@ -22,7 +23,7 @@ public class App {
             day = Integer.parseInt(arg[0]);
         }
         String input = downloadDay(day);
-        new Day1().run(input);
+        runner.runDay(day, input);
     }
 
     public static boolean isNumeric(String str) {
