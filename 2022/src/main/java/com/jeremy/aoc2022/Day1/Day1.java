@@ -6,34 +6,35 @@ import java.util.stream.Stream;
 
 import com.jeremy.aoc2022.Day;
 
-public class Day1 implements Day {
-    String TEST_INPUT = "1000\n2000\n3000\n\n4000\n\n5000\n6000\n\n7000\n8000\n9000\n\n10000";
-    String INPUT;
+public class Day1 extends Day {
+
+    public Day1() {
+
+    }
+
+    public Day1(String input) {
+        INPUT = input;
+    }
 
     public void run() {
-        run(TEST_INPUT);
+        System.out.println(runPart1());
+        System.out.println(runPart2());
     }
 
-    public void run(String input) {
-        INPUT = input;
-        runPart1();
-        runPart2();
-    }
-
-    public void runPart1() {
+    public int runPart1() {
         Stream<String> elves = getElves(INPUT);
         Stream<Integer> calories = elves.map(elf -> getCalories(elf));
         Integer highest = calories.max((i, j) -> i.compareTo(j)).get();
 
-        System.out.println("Part 1: " + highest);
+        return highest;
     }
 
-    public void runPart2() {
+    public int runPart2() {
         Stream<String> elves = getElves(INPUT);
         Stream<Integer> calories = elves.map(elf -> getCalories(elf));
         Integer highest = calories.sorted(Comparator.reverseOrder()).limit(3).mapToInt(i -> i.intValue()).sum();
 
-        System.out.println("Part 2: " + highest);
+        return highest;
     }
 
     private Stream<String> getElves(String input) {

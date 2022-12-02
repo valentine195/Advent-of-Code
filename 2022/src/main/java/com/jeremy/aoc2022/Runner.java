@@ -10,7 +10,8 @@ public class Runner {
     public void runDay(Integer dayNumber, String input) {
         Day day = days.get(dayNumber - 1);
         if (!day.equals(null)) {
-            day.run(input);
+            day.setInput(input);
+            day.run();
         } else {
             throw new Error("Invalid day specified");
         }
