@@ -2,8 +2,6 @@ package com.jeremy.aoc2022;
 
 import java.util.Calendar;
 
-import com.jeremy.aoc2022.Day1.Day1;
-
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -42,7 +40,7 @@ public class App {
             Request request = new Request.Builder()
                     .url("https://adventofcode.com/2022/day/" + day + "/input")
                     .addHeader("Cookie",
-                            "session=")
+                            "session=" + System.getenv("SESSION_COOKIE"))
                     .build();
             Response response = client.newCall(request).execute();
             return response.body().string();
