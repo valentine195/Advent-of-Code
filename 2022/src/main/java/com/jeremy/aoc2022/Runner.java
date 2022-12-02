@@ -2,10 +2,10 @@ package com.jeremy.aoc2022;
 
 import java.util.List;
 
-import com.jeremy.aoc2022.Day1.Day1;
+import com.jeremy.aoc2022.Days.*;
 
 public class Runner {
-    List<Day> days = List.of(new Day1());
+    List<Day> days = List.of(new Day1(), new Day2());
 
     public void runDay(Integer dayNumber, String input) {
         Day day = days.get(dayNumber - 1);

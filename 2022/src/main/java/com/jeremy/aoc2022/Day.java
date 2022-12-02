@@ -4,11 +4,14 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class Day {
+public abstract class Day {
     public String INPUT;
 
-    public void run() {
-    };
+    public abstract String runPart1();
+
+    public abstract String runPart2();
+
+    public abstract void run();
 
     public void setInput(String input) {
         INPUT = input;

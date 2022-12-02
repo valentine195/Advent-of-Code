@@ -1,4 +1,4 @@
-package com.jeremy.aoc2022.Day1;
+package com.jeremy.aoc2022.Days;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -21,20 +21,20 @@ public class Day1 extends Day {
         System.out.println(runPart2());
     }
 
-    public int runPart1() {
+    public String runPart1() {
         Stream<String> elves = getElves(INPUT);
         Stream<Integer> calories = elves.map(elf -> getCalories(elf));
         Integer highest = calories.max((i, j) -> i.compareTo(j)).get();
 
-        return highest;
+        return highest.toString();
     }
 
-    public int runPart2() {
+    public String runPart2() {
         Stream<String> elves = getElves(INPUT);
         Stream<Integer> calories = elves.map(elf -> getCalories(elf));
         Integer highest = calories.sorted(Comparator.reverseOrder()).limit(3).mapToInt(i -> i.intValue()).sum();
 
-        return highest;
+        return highest.toString();
     }
 
     private Stream<String> getElves(String input) {
