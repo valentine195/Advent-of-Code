@@ -48,20 +48,12 @@ class Points {
 
 public class Day2 extends Day {
 
-    List<String> MATCHES;
-
     public Day2() {
-
+        super();
     }
 
     public Day2(String input) {
-        setInput(input);
-    }
-
-    @Override
-    public void setInput(String input) {
-        INPUT = input;
-        MATCHES = List.of(INPUT.split("\n"));
+        super(input);
     }
 
     public void run() {
