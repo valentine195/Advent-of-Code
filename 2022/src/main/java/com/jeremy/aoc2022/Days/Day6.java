@@ -19,7 +19,7 @@ public class Day6 extends Day {
     }
 
     public String runPart1() {
-        
+
         return check(INPUT, 4);
 
     }
@@ -30,8 +30,7 @@ public class Day6 extends Day {
 
     public String check(String input, int uniques) {
         for (int i = uniques; i < input.length(); i++) {
-            HashSet<Integer> set = new HashSet<Integer>(INPUT.substring(i - uniques, i).chars().boxed().toList());
-            if (set.size() == uniques) {
+            if (INPUT.substring(i - uniques, i).chars().distinct().count() == uniques) {
                 return "" + (i);
             }
         }
