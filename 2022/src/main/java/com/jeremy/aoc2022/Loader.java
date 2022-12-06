@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Calendar;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -36,6 +37,11 @@ public class Loader {
 
     public String loadInput(int day) {
         return loadData(day, "input");
+    }
+
+    public String loadTest() {
+        int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        return loadData(day, "test");
     }
 
     public String loadTest(int day) {
