@@ -11,7 +11,7 @@ import com.jeremy.aoc2022.Days.*;
 
 public class Day6Test {
 
-    static String TEST_INPUT = new Loader().loadTest();
+    static String TEST_INPUT = new Loader().loadTest(6);
     static Day6 day = new Day6(TEST_INPUT);
 
     @Test

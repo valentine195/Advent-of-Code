@@ -1,7 +1,5 @@
 package com.jeremy.aoc2022.Days;
 
-import java.util.HashSet;
-
 import com.jeremy.aoc2022.Day;
 
 public class Day6 extends Day {
