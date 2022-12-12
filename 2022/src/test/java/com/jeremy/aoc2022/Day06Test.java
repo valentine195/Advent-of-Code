@@ -9,16 +9,16 @@ import org.junit.Test;
 
 import com.jeremy.aoc2022.Days.*;
 
-public class Day6Test {
+public class Day06Test {
 
     static String TEST_INPUT = new Loader().loadTest(6);
-    static Day6 day = new Day6(TEST_INPUT);
+    static Day06 day = new Day06(TEST_INPUT);
 
     @Test
     public void part1() {
         for (String line : List.of(TEST_INPUT.split("\n"))) {
             String[] split = line.split(":");
-            Day6 day = new Day6(split[0]);
+            Day06 day = new Day06(split[0]);
             assertEquals(day.runPart1(), split[1]);
         }
     }
@@ -27,7 +27,7 @@ public class Day6Test {
     public void part2() {
         for (String line : List.of(TEST_INPUT.split("\n"))) {
             String[] split = line.split(":");
-            Day6 day = new Day6(split[0]);
+            Day06 day = new Day06(split[0]);
             assertEquals(day.runPart2(), split[2]);
         }
     }

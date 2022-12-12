@@ -112,12 +112,12 @@ class TreeGrid {
     }
 }
 
-public class Day8 extends Day {
-    public Day8() {
+public class Day08 extends Day {
+    public Day08() {
         super();
     }
 
-    public Day8(String input) {
+    public Day08(String input) {
         super(input);
     }
 

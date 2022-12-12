@@ -6,13 +6,13 @@ import java.util.stream.Stream;
 
 import com.jeremy.aoc2022.Day;
 
-public class Day1 extends Day {
+public class Day01 extends Day {
 
-    public Day1() {
+    public Day01() {
 
     }
 
-    public Day1(String input) {
+    public Day01(String input) {
         INPUT = input;
     }
 

@@ -8,12 +8,12 @@ import java.util.stream.Stream;
 
 import com.jeremy.aoc2022.Day;
 
-public class Day4 extends Day {
-    public Day4() {
+public class Day04 extends Day {
+    public Day04() {
         super();
     }
 
-    public Day4(String input) {
+    public Day04(String input) {
         super(input);
     }
 

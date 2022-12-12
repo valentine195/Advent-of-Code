@@ -6,10 +6,10 @@ import org.junit.Test;
 
 import com.jeremy.aoc2022.Days.*;
 
-public class Day2Test {
+public class Day02Test {
 
     static String TEST_INPUT = new Loader().loadTest(2);
-    static Day2 day = new Day2(TEST_INPUT);
+    static Day02 day = new Day02(TEST_INPUT);
 
     @Test
     public void part1() {

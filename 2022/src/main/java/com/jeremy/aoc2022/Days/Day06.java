@@ -2,12 +2,12 @@ package com.jeremy.aoc2022.Days;
 
 import com.jeremy.aoc2022.Day;
 
-public class Day6 extends Day {
-    public Day6() {
+public class Day06 extends Day {
+    public Day06() {
         super();
     }
 
-    public Day6(String input) {
+    public Day06(String input) {
         super(input);
     }
 

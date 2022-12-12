@@ -7,12 +7,12 @@ import java.util.Set;
 
 import com.jeremy.aoc2022.Day;
 
-public class Day3 extends Day {
-    public Day3() {
+public class Day03 extends Day {
+    public Day03() {
         super();
     }
 
-    public Day3(String input) {
+    public Day03(String input) {
         super(input);
     }
 

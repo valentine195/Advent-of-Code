@@ -5,10 +5,10 @@ import static org.junit.Assert.assertEquals;
 import com.jeremy.aoc2022.Days.*;
 import org.junit.Test;
 
-public class Day7Test {
+public class Day07Test {
 
     static String TEST_INPUT = new Loader().loadTest(7);
-    static Day7 day = new Day7(TEST_INPUT);
+    static Day07 day = new Day07(TEST_INPUT);
 
     @Test
     public void part1() {

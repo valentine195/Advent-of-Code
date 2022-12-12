@@ -46,13 +46,13 @@ class Points {
     }
 }
 
-public class Day2 extends Day {
+public class Day02 extends Day {
 
-    public Day2() {
+    public Day02() {
         super();
     }
 
-    public Day2(String input) {
+    public Day02(String input) {
         super(input);
     }
 

@@ -4,12 +4,12 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.jeremy.aoc2022.Days.Day1;
+import com.jeremy.aoc2022.Days.Day01;
 
-public class Day1Test {
+public class Day01Test {
 
     static String TEST_INPUT = new Loader().loadTest(1);
-    static Day1 day1 = new Day1(TEST_INPUT);
+    static Day01 day1 = new Day01(TEST_INPUT);
 
     @Test
     public void part1() {

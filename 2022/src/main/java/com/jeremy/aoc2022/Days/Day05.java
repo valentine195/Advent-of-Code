@@ -88,12 +88,12 @@ class Crane {
 
 }
 
-public class Day5 extends Day {
-    public Day5() {
+public class Day05 extends Day {
+    public Day05() {
         super();
     }
 
-    public Day5(String input) {
+    public Day05(String input) {
         super(input);
     }
 

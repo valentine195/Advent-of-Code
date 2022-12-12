@@ -82,12 +82,12 @@ class Folder extends Item {
     }
 }
 
-public class Day7 extends Day {
-    public Day7() {
+public class Day07 extends Day {
+    public Day07() {
         super();
     }
 
-    public Day7(String input) {
+    public Day07(String input) {
         super(input);
     }
 

@@ -8,12 +8,12 @@ import java.util.Set;
 
 import com.jeremy.aoc2022.Day;
 
-public class Day9 extends Day {
-    public Day9() {
+public class Day09 extends Day {
+    public Day09() {
         super();
     }
 
-    public Day9(String input) {
+    public Day09(String input) {
         super(input);
     }
 
