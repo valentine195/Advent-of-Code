@@ -62,7 +62,7 @@ public class Day10 extends Day {
             for (int i = 0; i < increment; i++) {
 
                 if (position >= X - 1 && position <= X + 1) {
-                    screen += "#";
+                    screen += "o";
                 } else {
                     screen += ".";
                 }
