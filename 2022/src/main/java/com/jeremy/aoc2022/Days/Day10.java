@@ -1,10 +1,5 @@
 package com.jeremy.aoc2022.Days;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import com.jeremy.aoc2022.Day;
 
 public class Day10 extends Day {

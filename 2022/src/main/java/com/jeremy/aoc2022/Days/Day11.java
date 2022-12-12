@@ -66,10 +66,9 @@ public class Day11 extends Day {
         return "" + play(10000, true);
     }
 
-    String play(int rounds) {
+    String play(int rounds) { 
         return play(rounds, false);
     }
-
     String play(int rounds, boolean useMod) {
         Integer modulo = monkeys.stream().map(a -> a.test).reduce(1, (a, b) -> a * b);
         for (int i = 0; i < rounds; i++) {
