@@ -5,15 +5,14 @@ import static org.junit.Assert.assertEquals;
 import com.jeremy.aoc2022.Days.*;
 import org.junit.Test;
 
-public class Day12Test {
+public class Day13Test {
 
-    static String TEST_INPUT = new Loader().loadTest(12);
-    static Day12 day = new Day12(TEST_INPUT);
+    static String TEST_INPUT = new Loader().loadTest(13);
+    static Day13 day = new Day13(TEST_INPUT);
 
     @Test
     public void part1() {
-        day.buildGrid();
-        assertEquals(day.runPart1(), "29");
+        assertEquals(day.runPart1(), "13");
     }
     
     /*     @Test

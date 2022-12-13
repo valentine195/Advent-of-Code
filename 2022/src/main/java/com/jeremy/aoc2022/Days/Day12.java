@@ -2,13 +2,9 @@ package com.jeremy.aoc2022.Days;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
-import java.util.Set;
 
 import com.jeremy.aoc2022.Day;
 
