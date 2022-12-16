@@ -1,5 +1,7 @@
 package com.jeremy.aoc2022.Days;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -201,7 +203,7 @@ class CaveMap {
                 if (sensors.stream().anyMatch(sensor -> sensor.canSeePoint(intersection)))
                     // inside sensor region
                     continue;
-                //no sensor can see this intersection point; its the answer
+                // no sensor can see this intersection point; its the answer
                 return Long.valueOf(intersection.getX()) * 4000000 + Long.valueOf(intersection.getY());
             }
         }
@@ -222,8 +224,10 @@ public class Day15 extends Day {
     }
 
     public void run() {
-        System.out.println(runPart1());
-        System.out.println(runPart2());
+        Instant start = Instant.now();
+        System.out.println(runPart1() + " time: " + Duration.between(start, Instant.now()));
+        start = Instant.now();
+        System.out.println(runPart2() + " time: " + Duration.between(start, Instant.now()));
     }
 
     int target = 2000000;
