@@ -13,7 +13,12 @@ public abstract class Day {
 
     public abstract String runPart2();
 
-    public abstract void run();
+    public void run() {
+        Instant start = Instant.now();
+        System.out.println(runPart1() + " time: " + Duration.between(start, Instant.now()));
+        start = Instant.now();
+        System.out.println(runPart2() + " time: " + Duration.between(start, Instant.now()));
+    }
 
     public Day() {
 
