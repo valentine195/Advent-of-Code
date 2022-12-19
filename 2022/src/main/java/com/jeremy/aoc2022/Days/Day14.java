@@ -1,15 +1,12 @@
 package com.jeremy.aoc2022.Days;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import com.jeremy.aoc2022.Day;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter

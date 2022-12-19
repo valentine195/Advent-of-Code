@@ -102,7 +102,7 @@ public class Day16 extends Day {
 
     @Override
     public String runPart1() {
-        ValveGrid grid = ValveGrid.build(MATCHES);
+        /* ValveGrid grid = ValveGrid.build(MATCHES); */
         return "";
     }
 

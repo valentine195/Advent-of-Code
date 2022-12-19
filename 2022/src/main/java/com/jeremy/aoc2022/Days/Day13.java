@@ -1,7 +1,6 @@
 package com.jeremy.aoc2022.Days;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
