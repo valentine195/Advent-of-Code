@@ -4,13 +4,18 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Coord implements Comparable<Coord> {
-    public int x = 0;
-    public int y = 0;
+    public long x = 0;
+    public long y = 0;
 
     public static final Coord UP = new Coord(0, -1);
     public static final Coord DOWN = new Coord(0, 1);
     public static final Coord LEFT = new Coord(-1, 0);
     public static final Coord RIGHT = new Coord(1, 0);
+
+    public Coord(long r, long c) {
+        x = r;
+        y = c;
+    }
 
     public Coord(int r, int c) {
         x = r;
@@ -74,7 +79,7 @@ public class Coord implements Comparable<Coord> {
 
     // returns Manhattan distance to coord o
     public int dist(Coord o) {
-        return Math.abs(x - o.x) + Math.abs(y - o.y);
+        return Math.abs((int) x - (int) o.x) + Math.abs((int) y - (int) o.y);
     }
 
     // returns copy of self

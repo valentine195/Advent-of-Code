@@ -1,8 +1,7 @@
 package com.jeremy.aoc2022;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 
 public abstract class Day {

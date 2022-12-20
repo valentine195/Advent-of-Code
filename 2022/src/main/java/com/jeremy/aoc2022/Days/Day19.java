@@ -12,63 +12,63 @@ import java.util.stream.Stream;
 import com.jeremy.aoc2022.Day;
 import com.jeremy.aoc2022.utils.Coord;
 
-public class Day18 extends Day {
-    enum Tile {
-        LAVA,
-        AIR,
-        AIR2
+enum Tile {
+    LAVA,
+    AIR,
+    AIR2
+}
+
+class ThreeDCoord extends Coord {
+    int z;
+
+    ThreeDCoord(int[] coords) {
+        super(coords[0], coords[1]);
+        this.z = coords[2];
     }
 
-    class ThreeDCoord extends Coord {
-        int z;
-
-        ThreeDCoord(int[] coords) {
-            super(coords[0], coords[1]);
-            this.z = coords[2];
-        }
-
-        ThreeDCoord(int x, int y, int z) {
-            super(x, y);
-            this.z = z;
-        }
-
-        public Set<ThreeDCoord> neighbors() {
-            Set<ThreeDCoord> list = new HashSet<>();
-
-            list.add(new ThreeDCoord((int) x + 1, (int) y, (int) z));
-            list.add(new ThreeDCoord((int) x - 1, (int) y, (int) z));
-            list.add(new ThreeDCoord((int) x, (int) y + 1, (int) z));
-            list.add(new ThreeDCoord((int) x, (int) y - 1, (int) z));
-            list.add(new ThreeDCoord((int) x, (int) y, (int) z + 1));
-            list.add(new ThreeDCoord((int) x, (int) y, (int) z - 1));
-
-            return list;
-        }
-
-        boolean touches(ThreeDCoord coord) {
-            int dx = (int) x - (int) coord.x;
-            int dy = (int) y - (int) coord.y;
-            int dz = z - coord.z;
-
-            return Math.abs(dx) + Math.abs(dy) + Math.abs(dz) == 1;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(y, x, z);
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            return super.equals(obj) && z == ((ThreeDCoord) obj).z;
-        }
+    ThreeDCoord(int x, int y, int z) {
+        super(x, y);
+        this.z = z;
     }
 
-    public Day18(String input) {
+    public Set<ThreeDCoord> neighbors() {
+        Set<ThreeDCoord> list = new HashSet<>();
+
+        list.add(new ThreeDCoord((int) x + 1, (int) y, (int) z));
+        list.add(new ThreeDCoord((int) x - 1, (int) y, (int) z));
+        list.add(new ThreeDCoord((int) x, (int) y + 1, (int) z));
+        list.add(new ThreeDCoord((int) x, (int) y - 1, (int) z));
+        list.add(new ThreeDCoord((int) x, (int) y, (int) z + 1));
+        list.add(new ThreeDCoord((int) x, (int) y, (int) z - 1));
+
+        return list;
+    }
+
+    boolean touches(ThreeDCoord coord) {
+        int dx = (int) x - (int) coord.x;
+        int dy = (int) y - (int) coord.y;
+        int dz = z - coord.z;
+
+        return Math.abs(dx) + Math.abs(dy) + Math.abs(dz) == 1;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(y, x, z);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj) && z == ((ThreeDCoord) obj).z;
+    }
+}
+
+public class Day19 extends Day {
+    public Day19(String input) {
         super(input);
     }
 
-    public Day18() {
+    public Day19() {
         super();
     }
 
