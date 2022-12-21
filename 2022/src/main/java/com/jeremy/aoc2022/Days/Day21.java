@@ -2,6 +2,7 @@ package com.jeremy.aoc2022.Days;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,7 +16,10 @@ public class Day21 extends Day {
         double number;
         List<String> childrenNames = new ArrayList<>();;
         List<Monkey> children = new ArrayList<>();
+        Monkey sibling;
+        Monkey parent;
         String operation;
+        public boolean first;
 
         Monkey(String name, double number) {
             this.name = name;
@@ -54,10 +58,33 @@ public class Day21 extends Day {
         }
 
         double getNumber() {
-            if (operation != null) {
+            if (children.size() > 0) {
                 return performOperation(children.get(0).getNumber(), children.get(1).getNumber());
             } else {
                 return number;
+            }
+        }
+
+        void setInvertedOperation(String parentOperation) {
+            if (parentOperation.equals("+")) {
+                operation = "-";
+            }
+            if (parentOperation.equals("*")) {
+                operation = "/";
+            }
+            if (parentOperation.equals("-")) {
+                if (first) {
+                    operation = "+";
+                } else {
+                    operation = "-";
+                }
+            }
+            if (parentOperation.equals("/")) {
+                if (first) {
+                    operation = "*";
+                } else {
+                    operation = "/";
+                }
             }
         }
     }
@@ -76,6 +103,51 @@ public class Day21 extends Day {
 
     @Override
     public String runPart1() {
+
+        var monkeys = buildMonkeys();
+
+        return "" /* + (long) monkeys.get("root").getNumber() */;
+    }
+
+    @Override
+    public String runPart2() {
+
+        var monkeys = buildMonkeys();
+        Monkey root = monkeys.get("root");
+        Monkey me = monkeys.get("humn");
+        Monkey check = monkeys.get("humn");
+        List<String> path = new ArrayList<>();
+        path.add("humn");
+        while (check.parent != null) {
+            path.add(check.parent.name);
+            check = check.parent;
+        }
+        String otherName = root.childrenNames.stream().filter(c -> !path.contains(c)).findFirst().get();
+
+        for (String name : path) {
+            Monkey m = monkeys.get(name);
+            m.number = 0;
+            m.children.clear();
+
+            if (m.parent != null) {
+                if (m.parent.name.equals("root")) {
+                    m.number = monkeys.get(otherName).getNumber();
+                    continue;
+                }
+                if (m.first || m.parent.operation.equals("*") || m.parent.operation.equals("+")) {
+                    m.children.add(m.parent);
+                    m.children.add(m.sibling);
+                } else {
+                    m.children.add(m.sibling);
+                    m.children.add(m.parent);
+                }
+                m.setInvertedOperation(m.parent.operation);
+            }
+        }
+        return "" + (long) me.getNumber();
+    }
+
+    HashMap<String, Monkey> buildMonkeys() {
         HashMap<String, Monkey> monkeys = new HashMap<>();
         for (String line : MATCHES) {
             Matcher targetMatch = MONKEY_TARGETS.matcher(line);
@@ -101,18 +173,13 @@ public class Day21 extends Day {
             if (monkey.childrenNames.size() > 0) {
                 for (String child : monkey.childrenNames) {
                     monkey.addChild(monkeys.get(child));
+                    monkeys.get(child).parent = monkey;
                 }
+                monkey.children.get(0).sibling = monkey.children.get(1);
+                monkey.children.get(0).first = true;
+                monkey.children.get(1).sibling = monkey.children.get(0);
             }
         }
-
-        System.out.println((long) monkeys.get("root").getNumber());
-
-        return null;
-    }
-
-    @Override
-    public String runPart2() {
-        // TODO Auto-generated method stub
-        return null;
+        return monkeys;
     }
 }
