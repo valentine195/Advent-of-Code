@@ -12,12 +12,12 @@ public class Day21 extends Day {
 
     class Monkey {
         String name;
-        long number;
+        double number;
         List<String> childrenNames = new ArrayList<>();;
         List<Monkey> children = new ArrayList<>();
         String operation;
 
-        Monkey(String name, long number) {
+        Monkey(String name, double number) {
             this.name = name;
             this.number = number;
         }
@@ -33,7 +33,7 @@ public class Day21 extends Day {
             children.add(monkey);
         }
 
-        private float performOperation(float first, float second) {
+        private double performOperation(double first, double second) {
             switch (operation) {
                 case "+": {
                     return first + second;
@@ -53,7 +53,7 @@ public class Day21 extends Day {
             }
         }
 
-        float getNumber() {
+        double getNumber() {
             if (operation != null) {
                 return performOperation(children.get(0).getNumber(), children.get(1).getNumber());
             } else {
@@ -92,7 +92,7 @@ public class Day21 extends Day {
             Matcher numberMatcher = MONKEY_NUMBER.matcher(line);
             if (numberMatcher.matches()) {
                 String name = numberMatcher.group("name");
-                Long number = Long.parseLong(numberMatcher.group("number"));
+                Double number = Double.parseDouble(numberMatcher.group("number"));
                 monkeys.put(name, new Monkey(name, number));
             }
         }
