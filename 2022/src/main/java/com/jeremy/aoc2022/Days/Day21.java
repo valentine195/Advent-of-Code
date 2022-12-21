@@ -106,7 +106,7 @@ public class Day21 extends Day {
 
         var monkeys = buildMonkeys();
 
-        return "" /* + (long) monkeys.get("root").getNumber() */;
+        return "" + (long) monkeys.get("root").getNumber();
     }
 
     @Override
