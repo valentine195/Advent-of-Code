@@ -77,6 +77,18 @@ public class Coord implements Comparable<Coord> {
         return new Coord(this.x + x, this.y + y);
     }
 
+    public Coord set(Coord coord) {
+        this.x = (long) coord.x;
+        this.y = (long) coord.y;
+        return this;
+    }
+
+    public Coord set(int x, int y) {
+        this.x = (long) x;
+        this.y = (long) y;
+        return this;
+    }
+
     // returns Manhattan distance to coord o
     public int dist(Coord o) {
         return Math.abs((int) x - (int) o.x) + Math.abs((int) y - (int) o.y);

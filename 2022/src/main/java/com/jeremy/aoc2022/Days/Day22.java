@@ -1,6 +1,5 @@
 package com.jeremy.aoc2022.Days;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -198,7 +197,7 @@ public class Day22 extends Day {
 
     @Override
     public String runPart2() {
-        // TODO Auto-generated method stub
+        
         return null;
     }
 }

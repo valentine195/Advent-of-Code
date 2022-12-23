@@ -3,15 +3,12 @@ package com.jeremy.aoc2022.Days;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import com.jeremy.aoc2022.Day;
 import com.jeremy.aoc2022.utils.Coord;
