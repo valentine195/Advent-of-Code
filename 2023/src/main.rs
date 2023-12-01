@@ -4,6 +4,7 @@ mod puzzles;
 extern crate getopts;
 use getopts::Options;
 use std::env;
+use std::time::Instant;
 
 fn print_usage(program: &str, opts: Options) {
     let brief = format!("Usage: {} -y 2019 -d 1", program);
@@ -11,32 +12,35 @@ fn print_usage(program: &str, opts: Options) {
 }
 
 fn main() {
-    let args: Vec<String> = env::args().collect();
-    let program = args[0].clone();
+    let now = Instant::now();
+    // Code block to measure.
+    {
+        let args: Vec<String> = env::args().collect();
+        let program = args[0].clone();
 
-    let mut opts = Options::new();
-    opts.optopt("d", "day", "select a puzzle day", "01");
-    opts.optflag("h", "help", "print this help menu");
+        let mut opts = Options::new();
+        opts.optopt("d", "day", "select a puzzle day", "01");
+        opts.optflag("h", "help", "print this help menu");
 
-    let matches = match opts.parse(&args[1..]) {
-        Ok(m) => m,
-        Err(f) => {
-            panic!("{}", f.to_string())
+        let matches = match opts.parse(&args[1..]) {
+            Ok(m) => m,
+            Err(f) => {
+                panic!("{}", f.to_string())
+            }
+        };
+        if matches.opt_present("h") {
+            print_usage(&program, opts);
+            return;
         }
-    };
-    if matches.opt_present("h") {
-        print_usage(&program, opts);
-        return;
-    }
-    let year = match matches.opt_str("y") {
-        Some(s) => s.parse::<i32>().unwrap(),
-        None => 2020,
-    };
-    let day = match matches.opt_str("d") {
-        Some(s) => s.parse::<i32>().unwrap(),
-        None => 1,
-    };
+        let day = match matches.opt_str("d") {
+            Some(s) => s.parse::<i32>().unwrap(),
+            None => 1,
+        };
 
-    println!("{}", format!("Running {0}:day_{1:02}", year, day));
-    puzzles::run(day);
+        println!("{}", format!("Running 2023:day_{0:02}", day));
+        puzzles::run(day);
+    }
+
+    let elapsed = now.elapsed();
+    println!("Elapsed: {:.2?}", elapsed);
 }

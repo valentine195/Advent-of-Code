@@ -5,18 +5,19 @@ use std::path::Path;
 
 #[allow(dead_code)]
 pub fn read_day_input(day: i32, first: bool) -> Vec<String> {
-    let part = if first {"1"} else {"2"};
-    let path = format!("../inputs/day_{day}/{part}.txt");
+    let part = if first { "1" } else { "2" };
+    let prepend = if day < 10 { "0" } else { "" };
+    let path = format!("./inputs/day_{prepend}{day}/{part}.txt");
     let mut result: Vec<String> = Vec::new();
 
     if let Ok(file) = File::open(path) {
+        println!("found path");
         let reader = Box::new(BufReader::new(file));
         for line in reader.lines().flatten() {
             result.push(line)
         }
     }
     return result;
-
 }
 
 #[allow(dead_code)]
