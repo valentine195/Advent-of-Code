@@ -11,7 +11,6 @@ pub fn read_day_input(day: i32, first: bool) -> Vec<String> {
     let mut result: Vec<String> = Vec::new();
 
     if let Ok(file) = File::open(path) {
-        println!("found path");
         let reader = Box::new(BufReader::new(file));
         for line in reader.lines().flatten() {
             result.push(line)
