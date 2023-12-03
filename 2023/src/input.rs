@@ -4,10 +4,9 @@ use std::io::{BufRead, BufReader};
 use std::path::Path;
 
 #[allow(dead_code)]
-pub fn read_day_input(day: i32, first: bool) -> Vec<String> {
-    let part = if first { "1" } else { "2" };
+pub fn read_day_input(day: i32) -> Vec<String> {
     let prepend = if day < 10 { "0" } else { "" };
-    let path = format!("./inputs/day_{prepend}{day}/{part}.txt");
+    let path = format!("./inputs/day_{prepend}{day}.txt");
     let mut result: Vec<String> = Vec::new();
 
     if let Ok(file) = File::open(path) {

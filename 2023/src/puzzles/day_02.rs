@@ -4,7 +4,7 @@ use crate::input;
 use regex::Regex;
 
 pub fn run() {
-    let input = input::read_day_input(2, true);
+    let input = input::read_day_input(2);
 
     println!("running day 2");
 

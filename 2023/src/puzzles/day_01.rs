@@ -3,7 +3,7 @@ use regex::Regex;
 
 pub fn run() {
     println!("running day 1");
-    let input = input::read_day_input(1, true);
+    let input = input::read_day_input(1);
 
     println!("** Part 1 Final: {:?}", get_sums(&input, true));
 
