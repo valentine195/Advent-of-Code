@@ -1,7 +1,7 @@
-use crate::puzzle_input;
+use crate::input;
 
 pub fn run() {
-    let input: Vec<String> = puzzle_input::read_day_input(0, true);
+    let input: Vec<String> = input::read_day_input(0);
 
     println!("** Part 1 Final: {:?}", 0);
     println!("** Part 2 Final: {:?}", 0);
@@ -13,7 +13,7 @@ mod tests {
 
     #[test]
     fn test() {
-        let input: Vec<String> = puzzle_input::split_string("");
+        let input: Vec<String> = input::split_string("");
 
     }
 }
