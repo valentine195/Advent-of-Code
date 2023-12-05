@@ -17,10 +17,8 @@ fn scratch_cards(input: &Vec<String>) -> i32 {
     for idx in 0..input.len() {
         let game = &input[idx];
         let count = play_game(game);
-        if count > 0 {
-            for add in 1..=count {
-                cards[idx + add as usize] += cards[idx];
-            }
+        for add in 1..=count {
+            cards[idx + add as usize] += cards[idx];
         }
     }
 
@@ -29,7 +27,6 @@ fn scratch_cards(input: &Vec<String>) -> i32 {
 
 fn play_games(input: &Vec<String>) -> i32 {
     let mut sum = 0;
-    println!("here");
     for game in input {
         let count = play_game(game);
         sum += if count > 0 { 2i32.pow(count - 1) } else { 0 };
