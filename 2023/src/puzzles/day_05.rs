@@ -1,9 +1,4 @@
-use std::{
-    alloc::System,
-    collections::{BTreeSet, HashSet},
-    fmt::Error,
-    str::FromStr,
-};
+use std::{collections::BTreeSet, fmt::Error, str::FromStr};
 
 use crate::input;
 
@@ -21,15 +16,10 @@ struct MapEntry {
     range: u64,
 }
 impl MapEntry {
-    fn process_seed(&self, seed: Seed, inverted: bool) -> Option<u64> {
-        let source = if inverted { self.dest } else { self.source };
+    fn process_seed(&self, seed: Seed) -> Option<u64> {
+        let source = self.source;
         if (source..(source + self.range)).contains(&seed) {
-            let val = if inverted {
-                seed - self.dest + self.source
-            } else {
-                seed - self.source + self.dest
-            };
-            Some(val)
+            Some(seed - self.source + self.dest)
         } else {
             None
         }
@@ -62,11 +52,12 @@ impl FromStr for MapEntry {
 #[derive(Debug)]
 struct Map {
     entries: Vec<MapEntry>,
+    name: String,
 }
 impl Map {
-    fn process_seed(&self, seed: Seed, inverted: bool) -> u64 {
+    fn process_seed(&self, seed: Seed) -> u64 {
         for entry in self.entries.iter() {
-            match entry.process_seed(seed, inverted) {
+            match entry.process_seed(seed) {
                 Some(dest) => {
                     return dest;
                 }
@@ -75,29 +66,43 @@ impl Map {
         }
         seed
     }
+
     fn find_bounds(&self, range: &(u64, u64)) -> Vec<(u64, u64)> {
-        let mut slices = BTreeSet::new();
+        println!("name: {}", self.name);
+        //get ordered ranges to bound the map
+        //if the range is fully outside the map entry, don't include the map entry, as the range will never touch it
+        //otherwise, include the parts of the map entry the range does not touch, so that we can consider it as an option
+        //always include the right edge of the range
+        let mut positions = BTreeSet::new();
         for entry in &self.entries {
+            println!("entry: {:?}", entry);
+            //range outside, do not care
             if range.1 < entry.source || range.0 > entry.end() {
                 continue;
             }
+            //range starts before the entry, so we need to include the entry source as an possible option
             if entry.source > range.0 {
-                slices.insert(entry.source);
+                positions.insert(entry.source);
             }
+            //range ends after the entry, so we need to include the entry end as an possible option
             if entry.end() < range.1 {
-                slices.insert(entry.end());
+                positions.insert(entry.end());
             }
         }
-        slices.insert(range.1);
-        let mut output = Vec::new();
+        positions.insert(range.1);
+        println!("positions: {:?}", positions);
         let mut current = range.0;
+        let mut offsets = Vec::new();
 
-        for position in slices {
-            let next = self.process_seed(current, false);
-            output.push((next, next + position - current));
+        //starting at the left edge of the range, step through our ordered ranges
+        //this gets the updated, map-processed ranges
+        for position in positions {
+            let next = self.process_seed(current);
+            //this is the
+            offsets.push((next, next + position - current));
             current = position;
         }
-        output
+        offsets
     }
 }
 
@@ -120,6 +125,7 @@ impl Garden {
 
         let mut map = Map {
             entries: Vec::new(),
+            name: input[2].to_owned(),
         };
         for line in &input[3..] {
             let start = match line.chars().next() {
@@ -133,6 +139,7 @@ impl Garden {
                 garden.maps.push(map);
                 map = Map {
                     entries: Vec::new(),
+                    name: line.to_owned(),
                 };
                 continue;
             }
@@ -152,16 +159,7 @@ impl Garden {
         let mut loc = seed;
 
         for map in self.maps.iter() {
-            loc = map.process_seed(loc, false)
-        }
-
-        loc
-    }
-    fn process_backwards(&self, seed: Seed) -> u64 {
-        let mut loc = seed;
-
-        for map in self.maps.iter().rev() {
-            loc = map.process_seed(loc, true)
+            loc = map.process_seed(loc);
         }
 
         loc
@@ -184,15 +182,18 @@ impl Garden {
 
     fn find_location(&self) -> u64 {
         let mut current: Vec<(u64, u64)> = self.seed_ranges();
-        let mut future = Vec::new();
+        let mut next = Vec::new();
 
         for map in &self.maps {
             for range in current {
+                println!("range: {:?}", range);
                 let converted = map.find_bounds(&range);
-                future.extend(converted);
+                println!("converted: {:?}", converted);
+                next.extend(converted);
             }
-            current = future;
-            future = Vec::new();
+            current = next;
+            println!("current: {:?}", current);
+            next = Vec::new();
         }
 
         current.iter().map(|range| range.0).min().unwrap()
@@ -203,48 +204,6 @@ type Seed = u64;
 
 type Seeds = Vec<Seed>;
 
-/* fn parse_map(input: &Vec<String>) -> (Seeds, Garden) {
-    let seeds: Seeds = input[0]
-        .split(": ")
-        .last()
-        .expect("string")
-        .split_whitespace()
-        .map(|v| v.parse::<u64>().expect("number"))
-        .collect();
-
-    let mut garden: Garden = Garden { maps: Vec::new() };
-
-    let mut map = Map {
-        entries: Vec::new(),
-    };
-    for line in &input[3..] {
-        let start = match line.chars().next() {
-            Some(c) => c,
-            None => {
-                continue;
-            }
-        };
-
-        if !start.is_numeric() && map.entries.len() > 0 {
-            garden.maps.push(map);
-            map = Map {
-                entries: Vec::new(),
-            };
-            continue;
-        }
-        match line.parse::<MapEntry>() {
-            Ok(entry) => map.entries.push(entry),
-            Err(_) => panic!("uh oh"),
-        }
-    }
-
-    if map.entries.len() > 0 {
-        garden.maps.push(map);
-    }
-
-    (seeds, garden)
-}
- */
 #[cfg(test)]
 mod tests {
     use super::*;
