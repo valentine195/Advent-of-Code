@@ -94,7 +94,7 @@ impl Map {
         //this gets the updated, map-processed ranges
         for position in positions {
             let next = self.process_seed(current);
-            //this is the
+            //this is the position of the current range, processed into the next range
             offsets.push((next, next + position - current));
             current = position;
         }
