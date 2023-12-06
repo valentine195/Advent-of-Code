@@ -34,7 +34,7 @@ fn get_ways_for_time(time: i64, dist: i64) -> i64 {
     );
     //an odd number of tries will have 2 chances because the mid point is between two numbers
     let mut count = if times.len() % 2 == 0 { 1 } else { 2 };
-    while times[left - 1] * times[right + 1] >= dist {
+    while times[left - 1] * times[right + 1] > dist {
         //+2 because left * right = right * left
         count += 2;
         left -= 1;
@@ -84,7 +84,7 @@ mod tests {
 Distance:  9  40  200",
         );
 
-        /* assert_eq!(288, get_ways(&input, false)); */
+        assert_eq!(288, get_ways(&input, false));
         assert_eq!(71503, get_ways(&input, true));
     }
 }
