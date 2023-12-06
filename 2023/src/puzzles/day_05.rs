@@ -51,8 +51,7 @@ impl FromStr for MapEntry {
 
 #[derive(Debug)]
 struct Map {
-    entries: Vec<MapEntry>,
-    name: String,
+    entries: Vec<MapEntry>
 }
 impl Map {
     fn process_seed(&self, seed: Seed) -> u64 {
@@ -68,14 +67,12 @@ impl Map {
     }
 
     fn find_bounds(&self, range: &(u64, u64)) -> Vec<(u64, u64)> {
-        println!("name: {}", self.name);
         //get ordered ranges to bound the map
         //if the range is fully outside the map entry, don't include the map entry, as the range will never touch it
         //otherwise, include the parts of the map entry the range does not touch, so that we can consider it as an option
         //always include the right edge of the range
         let mut positions = BTreeSet::new();
         for entry in &self.entries {
-            println!("entry: {:?}", entry);
             //range outside, do not care
             if range.1 < entry.source || range.0 > entry.end() {
                 continue;
@@ -90,7 +87,6 @@ impl Map {
             }
         }
         positions.insert(range.1);
-        println!("positions: {:?}", positions);
         let mut current = range.0;
         let mut offsets = Vec::new();
 
@@ -124,8 +120,7 @@ impl Garden {
         };
 
         let mut map = Map {
-            entries: Vec::new(),
-            name: input[2].to_owned(),
+            entries: Vec::new()
         };
         for line in &input[3..] {
             let start = match line.chars().next() {
@@ -139,7 +134,6 @@ impl Garden {
                 garden.maps.push(map);
                 map = Map {
                     entries: Vec::new(),
-                    name: line.to_owned(),
                 };
                 continue;
             }
@@ -186,13 +180,10 @@ impl Garden {
 
         for map in &self.maps {
             for range in current {
-                println!("range: {:?}", range);
                 let converted = map.find_bounds(&range);
-                println!("converted: {:?}", converted);
                 next.extend(converted);
             }
             current = next;
-            println!("current: {:?}", current);
             next = Vec::new();
         }
 
