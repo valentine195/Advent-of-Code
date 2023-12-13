@@ -46,21 +46,6 @@ impl Valley {
     }
 }
 
-/* #[derive(Debug, PartialEq)]
-struct MaybeSmudge(char);
-impl MaybeSmudge {
-    fn char(&self) -> char {
-        self.0
-    }
-    fn opposite(&self) -> char {
-        match &self.0 {
-            '.' => '#',
-            '#' => '.',
-            _ => panic!("invalid char"),
-        }
-    }
-} */
-
 #[derive(Debug)]
 struct Grid {
     width: usize,
@@ -76,10 +61,7 @@ impl Grid {
         for row in 0..height {
             let mut chars = input[row].chars();
             for col in 0..width {
-                cells.insert(
-                    (col, row),
-                    /* MaybeSmudge( */ chars.next().unwrap(), /* ) */
-                );
+                cells.insert((col, row), chars.next().unwrap());
             }
         }
 
@@ -147,7 +129,7 @@ impl std::fmt::Display for Grid {
         let mut str = String::from("");
         for row in 0..self.height {
             for col in 0..self.width {
-                str.push(*self.cells.get(&(col, row)).unwrap() /* .0 */);
+                str.push(*self.cells.get(&(col, row)).unwrap());
             }
             str.push_str("\n");
         }
