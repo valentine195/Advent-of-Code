@@ -149,7 +149,6 @@ mod tests {
     #[test]
     fn part_two() {
         let mut spring = SpringRow::parse(&".??..??...?##. 1,1,3", 5).unwrap();
-        println!("{:?}", spring);
         assert_eq!(16384, spring.get_ways(spring.row.clone(), 0));
     }
 
