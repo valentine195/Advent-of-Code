@@ -52,3 +52,7 @@ where
 pub fn split_string(input: &str) -> Vec<String> {
     input.split('\n').map(|x| x.trim().to_string()).collect()
 }
+#[allow(dead_code)]
+pub fn split_string_by(input: &str, by: char) -> Vec<String> {
+    input.split(by).map(|x| x.trim().to_string()).collect()
+}
