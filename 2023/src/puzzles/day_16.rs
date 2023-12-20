@@ -18,7 +18,6 @@ pub fn run() {
 type Beam = (usize, usize, char);
 struct Map {
     grid: HashMap<(usize, usize), char>,
-    seen: HashSet<Beam>,
     width: usize,
     height: usize,
 }
@@ -36,7 +35,6 @@ impl Map {
         }
         Map {
             grid,
-            seen: HashSet::new(),
             width,
             height,
         }
