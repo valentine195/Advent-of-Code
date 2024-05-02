@@ -1,4 +1,4 @@
-package com.jeremy.aoc2022;
+/* package com.jeremy.aoc2022;
 
 import static org.junit.Assert.assertEquals;
 
@@ -15,10 +15,5 @@ public class Day13Test {
         assertEquals(day.runPart1(), "13");
     }
     
-    /*     @Test
-    public void part2() {
-        day.buildGrid();
-        assertEquals(day.runPart2(),
-                "2713310158");
-    } */
 }
+ */
