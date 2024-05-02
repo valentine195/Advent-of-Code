@@ -121,24 +121,6 @@ impl Map {
 
         max
     }
-    fn display(&self, beams: Vec<Beam>) {
-        for row in 0..self.width {
-            let mut str = String::from("");
-            for col in 0..self.height {
-                let possible_beams = beams
-                    .iter()
-                    .filter(|b| b.0 == col && b.1 == row)
-                    .collect::<Vec<&Beam>>();
-                str.push(match possible_beams.len() {
-                    0 => *self.grid.get(&(col, row)).unwrap(),
-                    1 => possible_beams[0].2,
-                    _ => char::from_digit(possible_beams.len() as u32, 10).unwrap(),
-                });
-            }
-            println!("{str}");
-        }
-        println!("---");
-    }
 }
 
 #[cfg(test)]

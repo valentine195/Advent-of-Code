@@ -18,6 +18,20 @@ pub fn read_day_input(day: i32) -> Vec<String> {
     return result;
 }
 
+pub fn read_day_input_whole(day: i32) -> String {
+    let prepend = if day < 10 { "0" } else { "" };
+    let path = format!("./inputs/day_{prepend}{day}.txt");
+    let mut result: Vec<String> = Vec::new();
+
+    if let Ok(file) = File::open(path) {
+        let reader = Box::new(BufReader::new(file));
+        for line in reader.lines().flatten() {
+            result.push(line)
+        }
+    }
+    return result.join("\n");
+}
+
 #[allow(dead_code)]
 pub fn read_all_lines<P>(filename: P) -> Vec<String>
 where
