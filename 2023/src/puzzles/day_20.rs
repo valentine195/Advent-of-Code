@@ -1,7 +1,6 @@
 use crate::input;
 use core::fmt;
 use std::{
-    borrow::BorrowMut,
     collections::{HashMap, VecDeque},
     fmt::Debug,
     str::FromStr,
@@ -11,10 +10,8 @@ pub fn run() {
     let input = input::read_day_input_whole(20);
     let mut communication = input.parse::<Communication>().unwrap();
 
-    communication.find_rx_out();
-
     println!("** Part 1 Final: {:?}", communication.run());
-    println!("** Part 2 Final: {:?}", 0);
+    println!("** Part 2 Final: {:?}", communication.find_rx_out());
 }
 #[derive(Default, Debug, Clone, Copy, PartialEq)]
 enum Pulse {
@@ -123,7 +120,7 @@ impl Communication {
         low * high
     }
 
-    fn find_rx_out(&mut self) {
+    fn find_rx_out(&mut self) -> i128 {
         let last = self
             .targets
             .iter()
@@ -135,7 +132,6 @@ impl Communication {
                 }
             })
             .unwrap();
-        println!("{last}");
 
         //find each loop that outputs into
         let end_loops = self.targets.iter().filter_map(|(name, targets)| {
@@ -145,15 +141,14 @@ impl Communication {
                 None
             }
         });
-        let mut loops: Vec<i32> = Vec::new();
+        let mut loops: Vec<i128> = Vec::new();
         for target in end_loops {
-            println!("{target}");
             loops.push(self.run_loop(&mut self.modules.clone(), target))
         }
+
+        loops.iter().fold(1, |acc, c| num_integer::lcm(acc, *c))
     }
-    fn run_loop(&self, modules: &mut Modules, target: &str) -> i32 {
-        println!("");
-        println!("*** TARGET {target} ***");
+    fn run_loop(&self, modules: &mut Modules, target: &str) -> i128 {
         let mut count = 0;
         'main_loop: loop {
             count += 1;
@@ -163,20 +158,17 @@ impl Communication {
             while let Some((name, signal)) = queue.pop_front() {
                 match self.targets.get(name) {
                     Some(targets) => {
-                        println!("name: {name}, targets: {:?}", targets);
                         for next in targets {
-                            println!("{next}, {:?}", signal);
-                            if next == target && signal == Pulse::High {
-                                break 'main_loop;
-                            }
-
                             match modules.get_mut(next) {
-                                Some(target) => {
-                                    if !target.should_continue(signal) {
+                                Some(t) => {
+                                    if !t.should_continue(signal) {
                                         continue;
                                     }
-                                    target.pulse(signal, name.to_string());
-                                    queue.push_back((next, target.state));
+                                    if (next == target && t.state == Pulse::High) {
+                                        break 'main_loop;
+                                    }
+                                    t.pulse(signal, name.to_string());
+                                    queue.push_back((next, t.state));
                                 }
                                 None => continue,
                             }
