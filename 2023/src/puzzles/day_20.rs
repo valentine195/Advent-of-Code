@@ -38,7 +38,6 @@ enum ModuleType {
 struct Module {
     kind: ModuleType,
     state: Pulse,
-    name: String,
 }
 impl Module {
     fn pulse(&mut self, signal: Pulse, name: String) {
@@ -164,7 +163,7 @@ impl Communication {
                                     if !t.should_continue(signal) {
                                         continue;
                                     }
-                                    if (next == target && t.state == Pulse::High) {
+                                    if next == target && t.state == Pulse::High {
                                         break 'main_loop;
                                     }
                                     t.pulse(signal, name.to_string());
@@ -196,7 +195,6 @@ impl FromStr for Communication {
                     Module {
                         kind: ModuleType::Broadcaster,
                         state: Pulse::Low,
-                        name: "broadcaster".to_string(),
                     },
                     "broadcaster",
                 ),
@@ -204,7 +202,6 @@ impl FromStr for Communication {
                     Module {
                         kind: ModuleType::FlipFlop,
                         state: Pulse::Low,
-                        name: src[1..].to_string(),
                     },
                     &src[1..],
                 ),
@@ -212,7 +209,6 @@ impl FromStr for Communication {
                     Module {
                         kind: ModuleType::Conjunction(HashMap::new()),
                         state: Pulse::Low,
-                        name: src[1..].to_string(),
                     },
                     &src[1..],
                 ),
