@@ -103,10 +103,6 @@ impl Display for Garden {
     }
 }
 
-#[derive(Debug)]
-struct Farmer {
-    locations: Vec<Point>,
-}
 
 #[cfg(test)]
 mod tests {
@@ -129,9 +125,6 @@ mod tests {
         );
 
         let mut garden = Garden::build(input).unwrap();
-
-        println!("{}", garden);
-
         assert_eq!(16, garden.plot_steps(6));
     }
 }
