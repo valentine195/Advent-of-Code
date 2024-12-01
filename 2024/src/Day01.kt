@@ -3,26 +3,26 @@ import kotlin.math.abs
 fun main() {
     fun part1(input: List<String>): Int {
 
-        val left = mutableListOf<Int>();
-        val right = mutableListOf<Int>();
+        val left = mutableListOf<Int>()
+        val right = mutableListOf<Int>()
 
         input.forEach {
             val split = it.split("\\s+".toRegex())
             left.add(split[0].toInt())
             right.add(split[1].toInt())
         }
-        left.sort();
-        right.sort();
+        left.sort()
+        right.sort()
 
         val distances = left.mapIndexed { index, it ->
             abs(it - right[index])
         }
-        return distances.sum();
+        return distances.sum()
     }
 
     fun part2(input: List<String>): Int {
-        val left = mutableListOf<Int>();
-        val right = mutableMapOf<Int, Int>();
+        val left = mutableListOf<Int>()
+        val right = mutableMapOf<Int, Int>()
 
         input.forEach {
             val split = it.split("\\s+".toRegex())
@@ -30,12 +30,12 @@ fun main() {
             right[split[1].toInt()] = right.getOrDefault(split[1].toInt(), 0) + 1
         }
 
-        var similarity = 0;
+        var similarity = 0
         for (item in left) {
-            similarity +=  item * right.getOrDefault(item, 0);
-        };
+            similarity +=  item * right.getOrDefault(item, 0)
+        }
 
-        return similarity;
+        return similarity
     }
 
     // Test if implementation meets criteria from the description, like:
