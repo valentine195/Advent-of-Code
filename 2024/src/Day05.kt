@@ -4,9 +4,8 @@ fun main() {
             if (index >= input.size) {
                 true
             } else {
-                val page = input[index]
-                val rest = input.slice(index + 1..<input.size)
-                !rest.any { instructions.getOrDefault(it, listOf()).contains(page) }
+                !input.slice(index + 1..<input.size)
+                    .any { instructions.getOrDefault(it, listOf()).contains(input[index]) }
             }
         }
     }
