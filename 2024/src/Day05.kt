@@ -1,12 +1,9 @@
 fun main() {
     fun isOrdered(input: List<Int>, instructions: Map<Int, List<Int>>): Boolean {
         return input.indices.all { index ->
-            if (index >= input.size) {
-                true
-            } else {
-                !input.slice(index + 1..<input.size)
-                    .any { instructions.getOrDefault(it, listOf()).contains(input[index]) }
-            }
+            index < input.size && !input.slice(index + 1..<input.size)
+                .any { instructions.getOrDefault(it, listOf()).contains(input[index]) }
+
         }
     }
 
