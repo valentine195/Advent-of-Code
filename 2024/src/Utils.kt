@@ -6,7 +6,12 @@ import kotlin.io.path.readText
 /**
  * Reads lines from the given input txt file.
  */
-fun readInput(name: String): List<String> = Path("./2024/src/$name.txt").readText().trim().lines()
+fun readInputText(name: String): String = Path("./2024/src/$name.txt").readText().trim()
+
+/**
+ * Reads lines from the given input txt file.
+ */
+fun readInput(name: String): List<String> = readInputText(name).lines()
 
 
 /**
