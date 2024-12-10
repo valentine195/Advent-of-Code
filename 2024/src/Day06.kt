@@ -1,4 +1,3 @@
-typealias Point = Pair<Int, Int>
 typealias Looping = Int
 
 enum class Direction() {
@@ -28,9 +27,6 @@ enum class Direction() {
 }
 
 fun main() {
-    fun add(point: Point, direction: Point): Point {
-        return Pair(point.first + direction.first, point.second + direction.second)
-    }
 
     /**
      * Returns a tuple of ( visited points, Looping bit )
@@ -41,7 +37,7 @@ fun main() {
         var guard = grid.find('^')!!
         val visited: HashSet<Pair<Point, Direction>> = hashSetOf()
         while (visited.add(Pair(guard, direction)) /* returns false if present */) {
-            val next = add(guard, direction.move())
+            val next = guard.add(direction.move())
             when (grid[next]) {
                 '#' -> direction = direction.rotate()
                 is Char -> guard = next

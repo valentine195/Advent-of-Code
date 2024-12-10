@@ -1,18 +1,4 @@
 fun main() {
-    data class Point(val x: Int, val y: Int)
-
-    fun distance(p1: Point, p2: Point): Point {
-        return Point(p2.x - p1.x, p2.y - p1.y)
-    }
-
-    fun add(point: Point, distance: Point): Point {
-        return Point(point.x + distance.x, point.y + distance.y)
-    }
-
-    fun subtract(point: Point, distance: Point): Point {
-        return Point(point.x - distance.x, point.y - distance.y)
-    }
-
     fun <T> uniquePairs(list: List<T>): List<Pair<T, T>> {
         return list.indices.flatMap { i ->
             (i + 1 until list.size).map { j -> list[i] to list[j] }
@@ -30,8 +16,8 @@ fun main() {
         val uniques = antennae.values
             .flatMap { pairs ->
                 pairs.flatMap { (p1, p2) ->
-                    val distance = distance(p1, p2)
-                    listOf(add(p2, distance), subtract(p1, distance))
+                    val distance = p1.distance(p2)
+                    listOf(p2.add(distance), p1.subtract(distance))
                 }
             }
             .filter { it.x in 0 until width && it.y in 0 until height }.toSet()
@@ -49,12 +35,12 @@ fun main() {
         val uniques = antennae.values
             .flatMap { pairs ->
                 pairs.flatMap { (p1, p2) ->
-                    val distance = distance(p1, p2)
+                    val distance = p1.distance(p2)
 
-                    generateSequence(add(p2, distance)) { add(it, distance) }
+                    generateSequence(p2.add(distance)) { it.add(distance) }
                         .takeWhile { inside(it) }
                         .toList() +
-                            generateSequence(subtract(p1, distance)) { subtract(it, distance) }
+                            generateSequence(p1.subtract(distance)) { it.subtract(distance) }
                                 .takeWhile { inside(it) }
                                 .toList() +
                             listOf(p1, p2)

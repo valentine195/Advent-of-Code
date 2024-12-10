@@ -26,20 +26,3 @@ fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteA
  */
 fun Any?.println() = println(this)
 
-class Grid(input: List<String>) {
-    private val grid: HashMap<Point, Char> = input.foldIndexed(hashMapOf<Point, Char>()) { y, grid, row ->
-        row.toCharArray().forEachIndexed { x, c ->
-            grid[Point(x, y)] = c
-        }
-        grid
-    }
-
-    operator fun get(point: Point) = grid[point]
-
-    operator fun set(point: Point, value: Char) {
-        grid[point] = value
-    }
-
-    fun find(char: Char): Point? = grid.entries.find { it.value == char }?.key
-    fun contains(point: Point) = grid.contains(point)
-}
