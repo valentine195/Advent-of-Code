@@ -47,31 +47,24 @@ fun main() {
                 if (next !in region) direction to point else null
             }
         }
+        perim.println()
         val h = perim
-            .groupBy { it.first to it.second.y }
+            .groupBy { it.first to it.second.y }.also { it.println() }
             .filterKeys { (direction, _) -> direction in listOf(Direction.UP, Direction.DOWN) }
             .values
-            .map { points ->
-                points.map { it.second }
+            .sumOf { points ->
+                points.asSequence().map { it.second }
                     .distinct()
-                    .sortedBy { it.x }
-            }
-            .sumOf { sortedPoints ->
-                sortedPoints.zipWithNext { a, b ->
-                    if (a.x + 1 != b.x) 1 else 0
-                }.sum() + 1
+                    .sorted().zipWithNext { a, b ->
+                        if (a.x + 1 != b.x) 1 else 0
+                    }.sum() + 1
             }
         val v = perim
             .groupBy { it.first to it.second.x }
             .filterKeys { (direction, _) -> direction in listOf(Direction.LEFT, Direction.RIGHT) }
             .values
-            .map { points ->
-                points.map { it.second }
-                    .distinct()
-                    .sortedBy { it.y }
-            }
-            .sumOf { sortedPoints ->
-                sortedPoints.zipWithNext { a, b ->
+            .sumOf { points ->
+                points.asSequence().map { it.second }.distinct().sorted().zipWithNext { a, b ->
                     if (a.y + 1 != b.y) 1 else 0
                 }.sum() + 1
             }
@@ -96,6 +89,6 @@ fun main() {
 // Read the input from the `src/Day01.txt` file.
     val input = readInput("Day12")
     val regions = getRegions(Grid(input))
-    part1(regions).println()
-    part2(regions).println()
+    /*    part1(regions).println()
+        part2(regions).println()*/
 }
