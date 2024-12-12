@@ -23,4 +23,6 @@ class Grid(input: List<String>) {
     fun find(char: Char): Point? = grid.entries.find { it.value == char }?.key
     fun contains(point: Point) = grid.contains(point)
     fun isInside(point: Point) = point.x in 0..bounds.x && point.y in 0..bounds.y
+
+    operator fun iterator() = grid.keys.iterator()
 }
