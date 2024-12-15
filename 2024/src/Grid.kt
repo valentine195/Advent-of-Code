@@ -21,8 +21,23 @@ class Grid(input: List<String>) {
     }
 
     fun find(char: Char): Point? = grid.entries.find { it.value == char }?.key
+    fun findAll(char: Char): List<Point> = grid.filter { it.value == char }.keys.toList()
     fun contains(point: Point) = grid.contains(point)
     fun isInside(point: Point) = point.x in 0..bounds.x && point.y in 0..bounds.y
 
     operator fun iterator() = grid.keys.iterator()
+
+    override fun toString(): String {
+        val str = mutableListOf<String>()
+        for (y in 0..bounds.y) {
+            val line = mutableListOf<Char>()
+            for (x in 0..bounds.x) {
+                line.add(
+                    grid.getOrDefault(Point(x, y), ' ')
+                )
+            }
+            str.add(line.joinToString(""))
+        }
+        return str.joinToString("\n")
+    }
 }

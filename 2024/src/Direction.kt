@@ -20,4 +20,22 @@ enum class Direction() {
             LEFT -> UP
         }
     }
+
+    fun cw(): Direction {
+        return when (this) {
+            UP -> RIGHT
+            RIGHT -> DOWN
+            DOWN -> LEFT
+            LEFT -> UP
+        }
+    }
+
+    fun ccw(): Direction {
+        return when (this) {
+            DOWN -> RIGHT
+            RIGHT -> UP
+            UP -> LEFT
+            LEFT -> DOWN
+        }
+    }
 }
