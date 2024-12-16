@@ -32,25 +32,16 @@ fun main() {
     }
 
     fun traverse(
-        start: Point, finish: Point, grid: Map<DirectedPoint, Char>, bounds: Point
+        start: DirectedPoint, finish: Point, grid: Map<Point, Char>
     ): Int {
-        val directedStart = DirectedPoint(start, Direction.RIGHT)
         val frontier =
-            PriorityQueue<Pair<DirectedPoint, Int>> { a, b -> (a.second - b.second) }.also { it.add(directedStart to 0) }
+            PriorityQueue<Pair<DirectedPoint, Int>> { a, b -> (a.second - b.second) }.also { it.add(start to 0) }
         val cameFrom = hashMapOf<DirectedPoint, DirectedPoint>()
-        val costs = hashMapOf<Point, Int>(start to 0)
+        val costs = hashMapOf<Point, Int>(start.first to 0)
 
         while (frontier.isNotEmpty()) {
             val current = frontier.poll().first
             if (current.first == finish) {
-                val path = mutableListOf<DirectedPoint>()
-                var pathing = current
-                while (pathing.first != start) {
-                    path.add(pathing)
-                    pathing = cameFrom[pathing]!!
-                }
-                path.reverse() // optional
-                print(grid, bounds, path)
                 return costs[current.first]!!
             }
 
@@ -62,7 +53,7 @@ fun main() {
                 current.first + current.second.cw() to current.second.cw(),
                 current.first + current.second.ccw() to current.second.ccw()
             )
-            for (next in points.filter { it in grid }) {
+            for (next in points.filter { it.first in grid }) {
                 val cost = costs[current.first]!! + cost(current, next)
                 if (next.first !in costs || cost < costs[next.first]!!) {
                     costs[next.first] = cost
@@ -73,39 +64,79 @@ fun main() {
 
 
         }
-        throw IllegalArgumentException()
+        return Int.MAX_VALUE
     }
 
     fun part1(input: List<String>): Int {
         lateinit var reindeer: Point
         lateinit var end: Point
-        val grid: Map<DirectedPoint, Char> = input.foldIndexed(hashMapOf<DirectedPoint, Char>()) { y, grid, row ->
+        val grid: Map<Point, Char> = input.foldIndexed(hashMapOf<Point, Char>()) { y, grid, row ->
             row.toCharArray().forEachIndexed { x, c ->
                 if (c == '#') return@forEachIndexed
                 if (c == 'S') reindeer = Point(x, y)
                 if (c == 'E') end = Point(x, y)
-                Direction.entries.forEach {
-                    grid[Point(x, y) to it] = c
-                }
+                grid[Point(x, y)] = c
             }
             grid
         }
 
 
-        return traverse(reindeer, end, grid, Point(input[0].length, input.size))
+        return traverse(reindeer to Direction.RIGHT, end, grid)
     }
 
-    fun part2(input: List<String>): Int {
-        return input.size
+    fun part2(input: List<String>, target: Int): Int {
+        lateinit var reindeer: Point
+        lateinit var end: Point
+        val grid: Map<Point, Char> = input.foldIndexed(hashMapOf<Point, Char>()) { y, grid, row ->
+            row.toCharArray().forEachIndexed { x, c ->
+                if (c == '#') return@forEachIndexed
+                if (c == 'S') reindeer = Point(x, y)
+                if (c == 'E') end = Point(x, y)
+
+                grid[Point(x, y)] = c
+
+            }
+            grid
+        }
+        val visited = HashSet<DirectedPoint>()
+        val queue = ArrayDeque<Pair<DirectedPoint, Long>>()
+        val validPoints = HashSet<Point>()
+
+        queue.add(reindeer to Direction.RIGHT to 0)
+        while (queue.isNotEmpty()) {
+            val (current, currentScore) = queue.removeFirst()
+            validPoints.add(current.first)
+
+            if (current.first == end) continue
+
+            if (visited.contains(current)) continue
+            visited.add(current)
+
+            val nextMoves = listOf(
+                current.first + current.second to current.second to 1,
+                current.first + current.second.cw() to current.second.cw() to 1000,
+                current.first + current.second.ccw() to current.second.ccw() to 1000
+            )
+            for ((next, cost) in nextMoves) {
+                if (next.first !in grid || visited.contains(next)) continue
+                val lowest = traverse(next, end, grid)
+                if (currentScore + cost + lowest > target) continue
+
+                val nextScore = currentScore + cost
+                queue.add(next to nextScore)
+            }
+        }
+
+        return validPoints.count()
     }
 
     //Part 1
     val testInput = readInput("Day16_test")
     check(part1(testInput) == 7036)
+    check(part2(testInput, 7036).also { it.println() } == 45)
     val input = readInput("Day16")
-    part1(input).println()
+    val lowest = part1(input).also { it.println() }
 
     //Part 2
-    check(part2(testInput) == 1)
-    part2(input).println()
+    part2(input, lowest).println()
 }
