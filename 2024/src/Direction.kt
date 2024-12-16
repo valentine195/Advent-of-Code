@@ -12,6 +12,13 @@ enum class Direction() {
 
     fun others(): List<Direction> = entries.filter { it != this }
 
+    fun char(): Char = when (this) {
+        UP -> '^'
+        RIGHT -> '>'
+        DOWN -> 'v'
+        LEFT -> '<'
+    }
+
     fun rotate(): Direction {
         return when (this) {
             UP -> RIGHT
