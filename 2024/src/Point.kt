@@ -1,4 +1,6 @@
-class Point(val x: Int, val y: Int) : Comparable<Point> {
+import kotlin.math.abs
+
+open class Point(val x: Int, val y: Int) : Comparable<Point> {
 
     override fun hashCode(): Int {
         return javaClass.hashCode()
@@ -32,6 +34,19 @@ class Point(val x: Int, val y: Int) : Comparable<Point> {
 
     fun distance(point: Point): Point {
         return Point(point.x - x, point.y - y)
+    }
+
+    fun manhattan(point: Point): Int {
+        return abs(point.x - x) + abs(point.y - y)
+    }
+
+    fun neighbors4(offset: Int): List<Point> {
+        return listOf(
+            Point(x - offset, y),
+            Point(x, y - offset),
+            Point(x + offset, y),
+            Point(x, y + offset)
+        )
     }
 
     fun neighbors4(): List<Point> {
