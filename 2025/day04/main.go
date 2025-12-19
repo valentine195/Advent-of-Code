@@ -40,7 +40,6 @@ func (r *Roll) neighbors8() []Roll {
 }
 
 func part1(input string) int {
-	// ... your code ...
 
 	rolls := make(map[Roll]Roll)
 	maxX := 0

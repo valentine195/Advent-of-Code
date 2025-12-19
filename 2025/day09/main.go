@@ -24,7 +24,7 @@ func main() {
 }
 
 func part1(input string) int {
-	// ... your code ...
+
 	points := make([]image.Point, 0)
 	for _, line := range strings.Split(strings.TrimSpace(input), "\n") {
 		parts := strings.Split(line, ",")

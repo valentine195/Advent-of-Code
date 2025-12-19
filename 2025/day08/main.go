@@ -31,7 +31,7 @@ type JunctionBox struct {
 }
 
 func part1(input string, connections int) int {
-	// ... your code ...
+
 	boxes := make([]JunctionBox, 0)
 	for _, line := range strings.Split(strings.TrimSpace(input), "\n") {
 		parts := strings.Split(line, ",")
@@ -50,7 +50,7 @@ func part1(input string, connections int) int {
 }
 
 func part2(input string) int {
-	// ... your code ...
+
 	boxes := make([]JunctionBox, 0)
 	for _, line := range strings.Split(strings.TrimSpace(input), "\n") {
 		parts := strings.Split(line, ",")

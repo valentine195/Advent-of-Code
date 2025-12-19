@@ -23,7 +23,7 @@ func main() {
 }
 
 func part1(input string) int {
-	// ... your code ...
+
 	matrix := make([][]string, 0)
 	bounds := struct {
 		rows int
@@ -69,7 +69,7 @@ func part1(input string) int {
 }
 
 func part2(input string) int {
-	// ... your code ...
+
 	slicedInput := make([][]string, 0)
 	for _, line := range strings.Split(input, "\n") {
 		row := make([]string, 0)
